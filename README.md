@@ -1,6 +1,7 @@
 
 
 # Pahamify Intern Pre-test
+Nurrizky Imani 
 
 ##  Technology Stack 
  * Golang,
