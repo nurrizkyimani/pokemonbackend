@@ -1,5 +1,17 @@
-#Pahamify Intern Pre-test
 
+
+# Pahamify Intern Pre-test
+
+##  Technology Stack 
+ * Golang,
+ * GORM, 
+ * Gin Gonic,
+ * Heroku PSQL, 
+ * Docker,
+ * Godotenv
+ * Git/Github
+
+## Instruction
 
 The database is based on Heroku PosgreSQL, therefore the env is open with the url needed 
 
@@ -13,9 +25,6 @@ Then after the image is builded, run
 docker run -i -t -p 8080:8080 pahamifybackend
 
 ```
-
-
-
 
 # REST API
 
