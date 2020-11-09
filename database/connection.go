@@ -33,13 +33,7 @@ func InitDatabase() {
 
 	fmt.Println("Connection opened database")
 
-	DBConn.AutoMigrate(&model.Pokemon{})
-	// DBConn.AutoMigrate(&model.BlogComment{})
-
-	// DBConn.AutoMigrate(&model.Article{})
+	DBConn.AutoMigrate(&model.Pokemon{}, &model.Poketype{})
 
 	fmt.Println("database migrated")
-
-	// db = conn
-	// db.Debug().AutoMigrate(&Account{}, &Contact{}) //Database migration
 }
