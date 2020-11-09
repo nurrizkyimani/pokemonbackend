@@ -3,17 +3,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 class oneoscilator {
+
   static void pattern(int n, int compared, List<Integer> rest, boolean positive){
-
     rest.add(n);
-
     if(positive == false && n == compared){
       return;
     }
 
     if(positive == true){
       if(n-5 > 0){
-        pattern(n-5, compared, rest, true );
+        pattern(n-5, compared, rest, true);
       } else {
         pattern(n-5, compared, rest, false);
       }
