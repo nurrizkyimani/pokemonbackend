@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class silverking {
+class twosilverking {
 
   public static int helper(int input, int output ){
 

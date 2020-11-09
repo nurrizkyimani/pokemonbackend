@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 
-class smallestElement {
+class threesmallestElement {
   static void helper(){
       
     

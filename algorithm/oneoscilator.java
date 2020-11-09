@@ -2,7 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class oscilator {
+class oneoscilator {
   static void pattern(int n, int compared, List<Integer> rest, boolean positive){
 
     rest.add(n);
