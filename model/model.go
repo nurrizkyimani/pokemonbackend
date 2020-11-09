@@ -22,6 +22,22 @@ type PokeTest struct {
 	Poketypes []string `json:"types"`
 }
 
+type PokeResp struct {
+	ID string `json:"id" gorm:"primary_key"` 
+	Number string `json:"number"`
+	Name string `json:"name"`
+	Poketypes []struct{
+		Element string `json:"element"`
+	} `json:"types"`
+
+}
+
+// type Container struct {
+//     	Key struct {
+//         Key2 []PokeResp `json:"pokemons"`
+//     	}  `json:"data"`
+// 		}
+
 type Limit struct {	
 	Num int `json:"limit"`    
 }
@@ -29,3 +45,5 @@ type Limit struct {
 type PokeID struct {	
 	Num string `json:"ID"`    
 }
+
+

@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -29,17 +30,59 @@ func CORSMiddleware() gin.HandlerFunc {
 func ReadPoke(c *gin.Context){
     conn := database.DBConn
     var lim model.Limit
-    var poke model.Pokemon
+    var pokes[] model.Pokemon
 
     if err := c.ShouldBindJSON(&lim); err != nil {
         c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
         return
     }
+		res :=  conn.Preload("Poketypes").Limit(lim.Num).Find(&pokes)
+		resval := res.Value
+		
+		// marshaling the hits json; and unmarshalling;
+		b, err := json.Marshal(resval)
+		if err != nil {
+			panic("Error in marshal updatepoke")
+		}
 
-        res :=  conn.Preload("Poketypes").Find(&poke)
+		//configure the response structure 
+		type Data struct {
+			Pokemons []model.PokeTest `json:"pokemons"`
+		}
 
-    c.JSON(200, res)
-    }
+		type JSONResp struct {
+			Data Data `json:"data"`
+		}
+
+		var a[] model.PokeResp 
+		err = json.Unmarshal(b, &a)
+
+		var t []model.PokeTest
+
+		for _, p  := range a {
+				var tipe []string
+				for _, each :=  range p.Poketypes {
+					tipe = append(tipe, each.Element)
+				}
+				
+				finalpokemon := model.PokeTest{
+						ID: p.ID,
+						Number: p.Number,
+						Name: p.Name,
+						Poketypes: tipe ,
+				}
+
+				t = append(t, finalpokemon)
+		}
+
+		jsonRespo := JSONResp {
+			Data: Data{
+			Pokemons: t,
+			},
+		}
+
+    c.JSON(200, jsonRespo)
+}
 
 func CreatePoke( c *gin.Context){
 
@@ -72,9 +115,14 @@ func CreatePoke( c *gin.Context){
 			
 		}
 		res := conn.Create(&finalpokemon)
-		c.JSON(200, res)
 
-    }
+		if res.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"status": "Internal Server Error"})
+		}
+
+		c.JSON(200, pokePost)
+
+  }
     
 func UpdatePoke( c *gin.Context){
 
@@ -112,11 +160,13 @@ func UpdatePoke( c *gin.Context){
 
 		res := conn.Model(&pokeQuery).Updates(finalpokemon)
 
-		res.Value
+		if res.Error != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"status": "Internal Server Error"})
+		}
 
-		c.JSON(200, res)
+		c.JSON(200, pokePost)
 
-    }
+  }
     
 
 func DeletePoke( c *gin.Context){
@@ -160,7 +210,7 @@ func DeletePoke( c *gin.Context){
 					"message": res.Error,
 				})
 		}
-
+		
 		c.JSON(200, gin.H{
 			"message": "OK",
 		})
