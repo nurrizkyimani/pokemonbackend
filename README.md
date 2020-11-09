@@ -1,37 +1,169 @@
 #Pahamify Intern Pre-test
 
+
+The database is based on Heroku PosgreSQL, therefore the env is open with the url needed 
+
+Using docker, build the image 
+```
+docker build . -t pahamifybackend
+```
+
+Then after the image is builded, run 
+```
+docker run -i -t -p 8080:8080 pahamifybackend
+
+```
+
+
+
+
 # REST API
 
 ### Reload the `Seen` in Algolia as False 
-* Endpoint: `/reload`
-* HTTP Method: `GET`
+* Endpoint: `/list`
+* HTTP Method: `POST`
 * Request Header:
-    * Accept: `NONE`
-    * Content-type: `NONE`
+    * Accept: `application/json`
+    * Content-type: `application/json`
     * Authorization: `NONE`
-  
-* Response Body:
+
+* Requst Body:
 ```json
   [
     {
-        "ProductName": "Sofa Java",
-        "ObjectID": "8750990000"
+    "limit": 2
     }
   ] 
   ```
-
-### Search with certain keyword from Algolia
-* Endpoint: `/search/sofa%20dudukan`
-* HTTP Method: `GET`
-* Request Header:
-    * Accept: `NONE`
-    * Content-type: `NONE`
-    * Authorization: `NONE`
   
 * Response Body:
 ```json
   {
-    "ProductName": "Sofa Java",
-    "ObjectID": "8750990000"
+    "data": {
+        "pokemons": [
+            {
+                "id": "57072197-e96e-4bf7-83e9-23c740183220",
+                "number": "Bulbasaur",
+                "name": "Bulbasaur",
+                "types": [
+                    "Grass",
+                    "Poison",
+                    "Grass",
+                    "Poison"
+                ]
+            },
+            {
+                "id": "57072197-e96e-4bf7-83e9-23c740183221",
+                "number": "Bulbasaur",
+                "name": "Bulbasaur",
+                "types": [
+                    "Grass",
+                    "Poison"
+                ]
+            }
+        ]
+    }
+}
+  ```
+
+### Search with certain keyword from Algolia
+* Endpoint: `/create`
+* HTTP Method: `POST`
+* Request Header:
+    * Accept: `application/json`
+    * Content-type: `application/json`
+    * Authorization: `NONE`
+  
+* Request Body:
+```json
+  {
+  "id": "57072197-e96e-4bf7-83e9-23c740183226",
+  "number": "001",
+  "name": "Bulbasaur",
+  "types": [
+    "Grass",
+    "Poison"
+  ]
+}
+
+  ```
+
+* Response Body:
+```json
+  {
+  "id": "57072197-e96e-4bf7-83e9-23c740183226",
+  "number": "001",
+  "name": "Bulbasaur",
+  "types": [
+    "Grass",
+    "Poison"
+  ]
+}
+
+  ```
+
+
+### Update the Pokemon Data
+* Endpoint: `/update`
+* HTTP Method: `POST`
+* Request Header:
+    * Accept: `application/json`
+    * Content-type: `application/json`
+    * Authorization: `NONE`
+  
+* Request Body:
+```json
+  {
+  "id": "57072197-e96e-4bf7-83e9-23c740183226",
+  "number": "001",
+  "name": "Bulbasaur",
+  "types": [
+    "Grass",
+    "Poison"
+  ]
+}
+
+  ```
+
+* Response Body:
+```json
+  {
+  "id": "57072197-e96e-4bf7-83e9-23c740183226",
+  "number": "001",
+  "name": "Bulbasaur",
+  "types": [
+    "Grass",
+    "Poison"
+  ]
+}
+```
+
+### Update the Pokemon Data
+* Endpoint: `/delete`
+* HTTP Method: `DELETE`
+* Request Header:
+    * Accept: `application/json`
+    * Content-type: `application/json`
+    * Authorization: `NONE`
+  
+* Request Body:
+```json
+  {
+  "id": "57072197-e96e-4bf7-83e9-23c740183226",
+  "number": "001",
+  "name": "Bulbasaur",
+  "types": [
+    "Grass",
+    "Poison"
+  ]
+}
+
+  ```
+
+* Response Body:
+```json
+  {
+  "message": "OK",
   }
+
   ```
