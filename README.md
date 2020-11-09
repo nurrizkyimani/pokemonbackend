@@ -28,6 +28,10 @@ docker run -i -t -p 8080:8080 pahamifybackend
 
 # REST API
 
+## Postman 
+
+https://documenter.getpostman.com/view/11806282/TVejgVBi
+
 ### Reload the `Seen` in Algolia as False 
 * Endpoint: `/list`
 * HTTP Method: `POST`
