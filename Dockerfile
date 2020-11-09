@@ -1,33 +1,36 @@
-FROM golang:alpine
+# Start from golang base image
+FROM golang:alpine as builder
 
-# Set necessary environmet variables needed for our image
-ENV GO111MODULE=on \
-  CGO_ENABLED=0 \
-  GOOS=linux \
-  GOARCH=amd64
+# Install git.
+RUN apk update && apk add --no-cache git
 
-# Move to working directory /build
-WORKDIR /build
+# Set the current working directory inside the container 
+WORKDIR /app
 
-# Copy and download dependency using go mod
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
+# Copy go mod and sum files 
+COPY go.mod go.sum ./
 
-# Copy the code into the container
+# Download all dependencies. Dependencies will be cached if the go.mod and the go.sum files are not changed 
+RUN go mod download 
+
+# Copy the source from the current directory to the working Directory inside the container 
 COPY . .
 
-# Build the application
-RUN go build -o main .
+# Build the Go app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 
-# Move to /dist directory as the place for resulting binary folder
-WORKDIR /dist
+# Start a new stage from scratch
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
 
-# Copy binary from build to main folder
-RUN cp /build/main .
+WORKDIR /root/
 
-# Export necessary port
+# Copy the Pre-built binary file from the previous stage. opied the .env file
+COPY --from=builder /app/main .
+COPY --from=builder /app/.env .       
+
+# Expose port 8080 to the outside world
 EXPOSE 8080
 
-# Command to run when starting the container
-CMD ["/dist/main"]
+#Command to run the executable
+CMD ["./main"]

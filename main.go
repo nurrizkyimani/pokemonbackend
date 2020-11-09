@@ -28,6 +28,6 @@ func main(){
 	r.DELETE("/delete", controller.DeletePoke)
 
 
-	r.Run("127.0.0.1:8080")
+	r.Run("0.0.0.0:8080")
 
 }
