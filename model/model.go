@@ -32,12 +32,6 @@ type PokeResp struct {
 
 }
 
-// type Container struct {
-//     	Key struct {
-//         Key2 []PokeResp `json:"pokemons"`
-//     	}  `json:"data"`
-// 		}
-
 type Limit struct {	
 	Num int `json:"limit"`    
 }

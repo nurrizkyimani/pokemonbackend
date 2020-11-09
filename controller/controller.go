@@ -27,6 +27,7 @@ func CORSMiddleware() gin.HandlerFunc {
     }
 }
 
+//ReadPoke is a function for get the poke data with limit; return json
 func ReadPoke(c *gin.Context){
     conn := database.DBConn
     var lim model.Limit
@@ -84,6 +85,7 @@ func ReadPoke(c *gin.Context){
     c.JSON(200, jsonRespo)
 }
 
+//CreatePoke is function use for creating new pokemon data, return json
 func CreatePoke( c *gin.Context){
 
 		conn := 	database.DBConn
@@ -123,7 +125,10 @@ func CreatePoke( c *gin.Context){
 		c.JSON(200, pokePost)
 
   }
-    
+		
+	
+
+//UpdatePoke is function for update the existing pokemon data, based on the id, return json;
 func UpdatePoke( c *gin.Context){
 
 		conn := 	database.DBConn
@@ -168,7 +173,7 @@ func UpdatePoke( c *gin.Context){
 
   }
     
-
+//DeletePoke is function use for deleting pokemondata; 
 func DeletePoke( c *gin.Context){
 		
 		// var PokeID model.PokeID

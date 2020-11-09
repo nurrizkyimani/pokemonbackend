@@ -14,7 +14,7 @@ var (
 	DBConn *gorm.DB
 )
 
-//InitDatabase is a function to initialize the connection with PSQL in Heroku
+//InitDatabase is a function to initialize the connection with PSQL in Heroku PSQL
 func InitDatabase() {
 	var err error
 	e := godotenv.Load() //Load .env file
@@ -24,7 +24,6 @@ func InitDatabase() {
 
 	dbURL := os.Getenv("db_url")
 
-	
 	fmt.Println(dbURL)
 
 	DBConn, err = gorm.Open("postgres", dbURL)
