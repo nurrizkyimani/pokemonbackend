@@ -1,14 +1,6 @@
 
 
-# Pahamify Intern Pre-test
-Nurrizky Imani 
-
-# Bagian 2: Algoritma
-
-The file are saved in the algorithm folder, writen using java. Each of the solution writen based on the number of the problems. 
-
-
-# Bagian 3: Small Project(Mandatory)
+# Project
 
 ##  Technology Stack 
  * Golang,
